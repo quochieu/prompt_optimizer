@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prompt Optimizer</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+      <header class="topbar">
+  <h1 class="text-gradient">Prompt Optimizer</h1>
+      </header>
+
+      <main>
+      <div id="view-optimizer" class="view active">
+      <section class="panel input-panel">
+  <h2 class="text-gradient">Your Input</h2>
+        
+    <div class="field-group">
+      <label for="system-prompt" class="text-accent field-title">System Prompt / Identity</label>
+            <span class="tiny muted text-hint">Define the AI's role, persona, and core rules (e.g., "You are a senior financial analyst..."). This sets the foundation for all interactions.</span>
+            <textarea id="system-prompt" placeholder="You are a helpful assistant..."></textarea>
+        </div>
+        <div class="field-group">
+      <label for="user-instructions" class="text-accent field-title">User Instructions / Main Task</label>
+            <span class="tiny muted text-hint">Provide the primary task, specific instructions, rules, and the user's query. Be as specific and detailed as possible for best results.</span>
+            <textarea id="user-instructions" placeholder="Analyze the following data for Q3 financial trends..."></textarea>
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label for="context" class="text-accent field-title">Optional context</label>
+            <div class="tiny muted text-hint" style="margin-bottom: 4px;">Relevant background, constraints, domain details, data schema, or environmental context that helps the AI understand the situation better.</div>
+            <textarea id="context" placeholder="Relevant background, constraints, domain details, links, data schema, etc."></textarea>
+          </div>
+          <div>
+            <label for="examples" class="text-accent field-title">Examples (multishot prompting)</label>
+            <div class="tiny muted text-hint" style="margin-bottom: 4px;">Provide 3-5 diverse examples (few-shot prompting) to dramatically improve accuracy, especially for structured or nuanced tasks.</div>
+            <textarea id="examples" placeholder="Few-shot examples: input → expected output. One per line or JSON."></textarea>
+            <div class="example-controls" style="justify-content:flex-end;">
+              <label class="toggle" style="margin-top:4px;"><input id="use-xml-examples" type="checkbox" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Wrap in &lt;examples&gt; XML tags</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label for="documents" class="text-accent field-title">Documents for grounding (optional)</label>
+            <div class="tiny muted text-hint" style="margin-bottom: 4px;">Use this for Retrieval-Augmented Generation (RAG). The AI will use the data provided here to ground its answers in fact.</div>
+            <textarea id="documents" placeholder="Paste documents, data, or context for quote-first grounding and fact verification..."></textarea>
+            <div class="document-controls">
+              <label class="toggle"><input id="enable-quote-extraction" type="checkbox" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Enable quote extraction first</span>
+              </label>
+              <label class="toggle"><input id="restrict-to-docs" type="checkbox" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Restrict answers to provided documents only</span>
+              </label>
+              <div class="tiny muted" style="margin-top: 4px;">
+                <strong>Quote extraction:</strong> AI finds relevant quotes before answering (improves accuracy). 
+                <strong>Restrict to docs:</strong> Prevents use of outside knowledge (pure RAG mode).
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="evaluation" class="text-accent field-title">Evaluation &amp; Testing</label>
+            <textarea id="evaluation" readonly placeholder="Generated evaluation criteria and test cases will appear here..."></textarea>
+            <!-- Removed unused evaluation action buttons -->
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label for="variables" class="text-accent field-title">Optional variables</label>
+            <div class="tiny muted text-hint" style="margin-bottom: 4px;">Define placeholders like {{TEXT}}, {{USER_ID}} with notes or sample values. Useful for creating reusable prompt templates.</div>
+            <textarea id="variables" placeholder="Define placeholders like {{TEXT}}, {{USER_ID}} with notes or sample values."></textarea>
+          </div>
+          <div>
+            <label for="success" class="text-accent field-title">Success criteria (optional)</label>
+            <div class="tiny muted text-hint" style="margin-bottom: 4px;">Define measurable acceptance criteria or target metrics. Helps the AI understand what constitutes a successful response.</div>
+            <textarea id="success" placeholder="Define measurable acceptance criteria or target metrics."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel config-panel">
+  <h2 class="text-gradient">Settings</h2>
+        <div class="grid two">
+          <div class="field">
+            <label for="tone">Tone</label>
+            <select id="tone">
+              <option value="" selected>Default</option>
+              <option value="conversational">Conversational</option>
+              <option value="professional">Professional</option>
+              <option value="academic">Academic</option>
+              <option value="creative">Creative</option>
+            </select>
+            <div class="tiny muted">Sets the overall communication style of the AI's response.</div>
+          </div>
+          <div class="field">
+            <label for="effort">Reasoning effort</label>
+            <select id="effort">
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+              <option value="high">High</option>
+            </select>
+            <div class="tiny muted">Controls the model's thoroughness. 'High' is better for complex tasks like coding but is slower. 'Low' is faster but less comprehensive.</div>
+          </div>
+        </div>        <div class="grid three">
+          <label class="toggle"><input id="ask-clarify" type="checkbox" checked />
+            <span class="switch-track" aria-hidden="true"></span>
+            <span class="switch-label">Ask clarifying questions if needed</span>
+          </label>
+          <label class="toggle"><input id="enforce-structure" type="checkbox" checked />
+            <span class="switch-track" aria-hidden="true"></span>
+            <span class="switch-label">Enforce output structure</span>
+          </label>
+          <label class="toggle"><input id="hidden-rubric" type="checkbox" checked />
+            <span class="switch-track" aria-hidden="true"></span>
+            <span class="switch-label">Use hidden self-review rubric</span>
+          </label>
+        </div>
+        <div class="tiny muted" style="margin-top: 8px;">
+          <strong>Ask clarifying questions:</strong> AI will ask for missing details when the request is ambiguous. 
+          <strong>Enforce output structure:</strong> Adds instruction for the model to follow a specified format precisely. 
+          <strong>Hidden rubric:</strong> AI creates internal quality criteria and iterates until meeting high standards.
+        </div>
+
+        <div class="grid three">
+          <label class="toggle"><input id="add-validation" type="checkbox" checked />
+            <span class="switch-track" aria-hidden="true"></span>
+            <span class="switch-label">Add validation and acceptance criteria</span>
+          </label>
+          <label class="toggle"><input id="add-budget" type="checkbox" />
+            <span class="switch-track" aria-hidden="true"></span>
+            <span class="switch-label">Add tool/step budget hints</span>
+          </label>
+          <label class="toggle"><input id="cite-sources" type="checkbox" />
+            <span class="switch-track" aria-hidden="true"></span>
+            <span class="switch-label">Ask to cite sources when relevant</span>
+          </label>
+        </div>
+        <div class="tiny muted" style="margin-top: 8px;">
+          <strong>Validation criteria:</strong> Includes verification steps and quality checkpoints in responses. 
+          <strong>Budget hints:</strong> Adds resource/efficiency constraints for tool usage and processing. 
+          <strong>Cite sources:</strong> Requests proper attribution and references for factual claims.
+        </div>
+
+    <div id="advanced-options" class="panel subtle">
+      <h3 class="text-accent">Advanced Options</h3>
+            
+            <div class="panel-section">
+                <h4 class="text-indigo">Reasoning & Logic</h4>
+                <div class="grid three">
+                    <div>
+                        <label class="toggle"><input id="opt-chain-of-thought" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Include Chain of Thought / Thinking</span>
+                        </label>
+                        <div class="tiny muted">Instructs the AI to 'think step-by-step' before answering, which improves accuracy on complex reasoning tasks.</div>
+                    </div>
+                    <div>
+                        <label class="toggle"><input id="opt-hidden-rubric" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Use Hidden Self-Review Rubric</span>
+                        </label>
+                        <div class="tiny muted">Inserts a rule for the AI to create an internal quality rubric and iterate on its answer until it meets a high standard. Very effective for creative or code-gen tasks.</div>
+                    </div>
+                    <div>
+                        <label class="toggle"><input id="opt-agent-eagerness" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Encourage Agentic Proactivity</span>
+                        </label>
+                        <div class="tiny muted">Adds a persistence instruction, telling the agent to continue working until a task is fully resolved without asking for permission to proceed.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h4 class="text-indigo">Grounding & Factuality</h4>
+                <div class="grid three">
+                    <div>
+                        <label class="toggle"><input id="opt-allow-idk" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Allow "I don't know" answers</span>
+                        </label>
+                        <div class="tiny muted">Gives the AI explicit permission to state it lacks information, which is a key technique for reducing factual hallucinations.</div>
+                    </div>
+                    <div>
+                        <label class="toggle"><input id="opt-restrict-docs" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Restrict to provided documents</span>
+                        </label>
+                        <div class="tiny muted">Instructs the AI to base responses only on provided documents, preventing outside knowledge contamination in RAG scenarios.</div>
+                    </div>
+                    <div>
+                        <label class="toggle"><input id="opt-cite-sources" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Require citations / claim verification</span>
+                        </label>
+                        <div class="tiny muted">Demands proper attribution and source references for all factual claims, improving accountability and verifiability.</div>
+                    </div>
+                </div>
+                 <div class="grid three">
+                    <div>
+                        <label class="toggle"><input id="opt-quote-extraction" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Extract supporting quotes first</span>
+                        </label>
+                        <div class="tiny muted">Uses the "quotes-first" technique: AI finds relevant quotes from documents before generating responses, dramatically improving factual accuracy.</div>
+                    </div>
+                     <div style="padding: 8px; border: 1px solid var(--border); border-radius: 4px;">
+                        <label class="toggle"><input id="opt-long-context-mode" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Optimize for Long Context</span>
+                        </label>
+                        <div class="tiny muted">Places large documents first in the prompt for better recall with long-context models. Ideal for processing extensive reference materials.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h4 class="text-indigo">Code Generation</h4>
+                <div class="grid three">
+                    <div>
+                        <label class="toggle"><input id="opt-include-code-rules" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Include general code editing rules</span>
+                        </label>
+                        <div class="tiny muted">Adds best practices for code quality, readability, error handling, and modularity. Essential for programming tasks.</div>
+                    </div>
+                    <div>
+                        <label class="toggle"><input id="opt-parallel-tools" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Encourage parallel tool calling</span>
+                        </label>
+                        <div class="tiny muted">Instructs the AI to use multiple tools simultaneously when possible, improving efficiency for complex workflows.</div>
+                    </div>
+                    <div>
+                        <label class="toggle"><input id="opt-cleanup-files" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Ask to clean up temp files</span>
+                        </label>
+                        <div class="tiny muted">Adds file management instructions to maintain organized project structure and remove temporary artifacts.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h4 class="text-indigo">Formatting & Structure</h4>
+                <div class="grid two">
+                    <div>
+                        <label class="toggle"><input id="opt-use-xml" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Use XML tags for structure</span>
+                        </label>
+                        <div class="tiny muted">Automatically wraps inputs like context and examples in XML tags (e.g., &lt;context&gt;) to improve the AI's ability to parse the prompt.</div>
+                    </div>
+                    <div>
+                        <label class="toggle"><input id="opt-prefer-json" type="checkbox" />
+                          <span class="switch-track" aria-hidden="true"></span>
+                          <span class="switch-label">Prefer JSON output</span>
+                        </label>
+                        <div class="tiny muted">Instructs the AI to structure responses as valid JSON when appropriate, useful for data processing and API integration.</div>
+                    </div>
+                </div>
+                <div class="grid two">
+                     <div>
+                         <label class="toggle"><input id="opt-forbid-markdown" type="checkbox" />
+                           <span class="switch-track" aria-hidden="true"></span>
+                           <span class="switch-label">Forbid Markdown in output</span>
+                         </label>
+                         <div class="tiny muted">Prevents Markdown formatting in responses, ensuring plain text output for systems that don't support Markdown.</div>
+                     </div>
+                     <div>
+                         <label class="toggle"><input id="opt-assistant-prefill" type="checkbox" />
+                           <span class="switch-track" aria-hidden="true"></span>
+                           <span class="switch-label">Show Assistant Prefill skeleton</span>
+                         </label>
+                         <div class="tiny muted">Enables the Assistant Prefill panel, allowing you to guide the start of the AI's response to enforce format or character.</div>
+                     </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <!-- Frontend Builder Toggle (positioned above frontend board) -->
+      <div class="panel" style="max-width: 400px; margin: 24px auto 0 auto;">
+        <div class="field">
+          <label class="group-label">Frontend Builder</label>
+          <div class="switch-row">
+            <label class="switch">
+              <input id="enable-frontend-builder" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+            <span class="switch-text">Enable Frontend Builder</span>
+          </div>
+          <div class="tiny muted">Toggle to enable/disable frontend configuration board below</div>
+        </div>
+      </div>
+
+      </div>
+
+      <div id="frontend-board" class="dimmed">
+      
+      <section class="panel input-panel">
+  <h2 class="text-gradient">Frontend Builder Configuration</h2>
+        <div class="muted tiny" style="margin-bottom: 16px;">
+          Configure frontend development options based on GPT-5 best practices. Enable the switch above to activate this board.
+        </div>
+
+        <!-- Frontend Templates moved to top -->
+        <div class="panel subtle" style="margin-bottom: 24px;">
+          <h3 class="text-accent">Frontend Templates</h3>
+          <div class="muted tiny" style="margin-bottom: 12px;">
+            Templates from GPT-5 frontend learnings
+          </div>
+          <div class="grid two">
+            <div>
+              <label for="fe-template">Select template</label>
+              <select id="fe-template">
+                <option value="">— Choose a template —</option>
+                <option value="landing_noir">Landing: Retro-arcade noir</option>
+                <option value="landing_pastel">Landing: Pastel & flowery (Mario-style)</option>
+                <option value="login_match_theme">Login page: Theme matching from image</option>
+                <option value="snake_game">Interactive: Neon cyberpunk snake game</option>
+                <option value="zero_to_one">Zero-to-one web application</option>
+                <option value="dashboard">Dashboard with multimodal input</option>
+                <option value="ecommerce">E-commerce store front</option>
+              </select>
+            </div>
+            <div class="actions">
+              <button id="fe-preview-template">Preview Template</button>
+              <div class="tiny muted">Templates leverage GPT-5's frontend capabilities</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid two">
+          <div class="field">
+            <label for="fe-reasoning-effort">Reasoning effort</label>
+            <select id="fe-reasoning-effort">
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+              <option value="high">High</option>
+            </select>
+            <div class="tiny muted">Controls the model's thoroughness. 'High' is better for complex frontend tasks but is slower. 'Low' is faster but less comprehensive.</div>
+          </div>
+          <div class="field">
+            <label class="toggle"><input id="fe-hidden-rubric" type="checkbox" />
+              <span class="switch-track" aria-hidden="true"></span>
+              <span class="switch-label">Use hidden self-review rubric</span>
+            </label>
+            <span class="muted tiny">Inserts a rule for the AI to create an internal quality rubric and iterate on its code until it meets high standards. Very effective for frontend code generation.</span>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label for="fe-brief">Project description</label>
+            <div class="tiny muted" style="margin-bottom: 4px;">Describe the site/app, target audience, key features, and overall goals. Be specific about functionality and purpose.</div>
+            <textarea id="fe-brief" placeholder="Describe the site/app, target audience, key features, and overall goals..."></textarea>
+          </div>
+          <div>
+            <label for="fe-style">Theme & visual style</label>
+            <div class="tiny muted" style="margin-bottom: 4px;">Define colors, typography, mood, and aesthetic. Examples: "retro-arcade noir", "pastel & flowery (Mario-style)", "neon cyberpunk", "modern minimalist".</div>
+            <textarea id="fe-style" placeholder="e.g., retro-arcade noir; pastel & flowery (Mario-style); neon cyberpunk; modern minimalist"></textarea>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label for="fe-pages">Pages & components structure</label>
+            <div class="tiny muted" style="margin-bottom: 4px;">List the pages needed (Home, About, Pricing, Login) and key components (Navbar, Hero, Card, Footer, Modal). This helps the AI plan the architecture.</div>
+            <textarea id="fe-pages" placeholder="Pages: Home, About, Pricing, Login; Components: Navbar, Hero, Card, Footer, Modal..."></textarea>
+          </div>
+          <div>
+            <label for="fe-interactions">Interactive features</label>
+            <div class="tiny muted" style="margin-bottom: 4px;">Specify games, animations, user interactions, dynamic content, API integrations, and any special functionality beyond static display.</div>
+            <textarea id="fe-interactions" placeholder="Games, animations, user interactions, dynamic content, API integrations..."></textarea>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label for="fe-image">Reference image URL (optional)</label>
+            <input id="fe-image" type="text" placeholder="https://.../design-reference.png" />
+            <div class="tiny muted">Provide design reference for style matching</div>
+          </div>
+          <div>
+            <label for="fe-multimodal">Multimodal input support</label>
+            <div class="tiny muted" style="margin-bottom: 4px;">Enable this to leverage GPT-5's native multimodal capabilities for design consistency when providing reference images.</div>
+            <label class="toggle"><input id="fe-enable-image-input" type="checkbox" />
+              <span class="switch-track" aria-hidden="true"></span>
+              <span class="switch-label">Enable image input for design matching</span>
+            </label>
+            <div class="tiny muted">GPT-5's native multimodal capabilities for design consistency</div>
+          </div>
+        </div>
+
+        <div class="panel subtle">
+          <h3>💡 Frontend Builder Tips</h3>
+          <div class="muted tiny" style="line-height: 1.4; margin-bottom: 8px;">
+            Based on GPT-5 frontend development insights:
+          </div>
+          <ul style="margin: 0; padding-left: 16px; color: var(--muted); font-size: 12px; line-height: 1.5;">
+            <li>GPT-5 excels at one-shot full application development</li>
+            <li>Use reference images for design consistency (multimodal input)</li>
+            <li>Specify visual themes clearly (e.g., "retro-arcade noir", "pastel Mario-style")</li>
+            <li>Include interactive requirements (games, animations, user flows)</li>
+            <li>Leverage recommended stack: Next.js + TypeScript + Tailwind CSS</li>
+            <li>Request production-quality code with accessibility considerations</li>
+          </ul>
+        </div>
+
+        <div class="panel subtle">
+          <h3 class="text-accent">Frontend Stack Configuration</h3>
+          <div class="muted tiny" style="margin-bottom: 12px;">
+            Recommended packages from GPT-5 frontend guidelines for optimal model steering
+          </div>
+          <div class="grid three">
+            <div>
+              <div class="group-label">Framework</div>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="framework" value="Next.js (TypeScript)" checked />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Next.js (TypeScript)</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="framework" value="React" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">React</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="framework" value="HTML" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">HTML</span>
+              </label>
+            </div>
+            <div>
+              <div class="group-label">Styling / UI</div>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="styling" value="Tailwind CSS" checked />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Tailwind CSS</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="styling" value="shadcn/ui" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">shadcn/ui</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="styling" value="Radix Themes" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Radix Themes</span>
+              </label>
+            </div>
+            <div>
+              <div class="group-label">Icons & Typography</div>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="icons" value="Material Symbols" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Material Symbols</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="icons" value="Heroicons" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Heroicons</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="icons" value="Lucide" checked />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Lucide</span>
+              </label>
+            </div>
+          </div>
+          <div class="grid three" style="margin-top: 12px;">
+            <div>
+              <div class="group-label">Animation & Motion</div>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="motion" value="Motion" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Motion (Framer Motion)</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="motion" value="CSS Animations" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">CSS Animations</span>
+              </label>
+            </div>
+            <div>
+              <div class="group-label">Fonts (Sans Serif recommended)</div>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="fonts" value="Inter" checked />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Inter</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="fonts" value="Geist" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Geist</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="fonts" value="Mona Sans" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Mona Sans</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="fonts" value="IBM Plex Sans" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">IBM Plex Sans</span>
+              </label>
+              <label class="toggle"><input type="checkbox" class="stack" data-group="fonts" value="Manrope" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Manrope</span>
+              </label>
+            </div>
+            <div>
+              <div class="group-label">Advanced Features</div>
+              <label class="toggle"><input type="checkbox" id="fe-one-shot" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">One-shot full application</span>
+              </label>
+              <label class="toggle"><input type="checkbox" id="fe-interactive" />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Interactive elements (games, etc.)</span>
+              </label>
+              <label class="toggle"><input type="checkbox" id="fe-responsive" checked />
+                <span class="switch-track" aria-hidden="true"></span>
+                <span class="switch-label">Responsive design</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="panel output-panel">
+  <h2 class="text-gradient">Final Assembled Prompt</h2>
+        <div class="actions">
+          <button id="improve">Improve Prompt</button>
+          <button id="copy">Copy</button>
+          <button id="download">Download</button>
+          <span id="status" aria-live="polite"></span>
+        </div>
+        <textarea id="optimized" readonly placeholder="Your improved prompt will appear here..."></textarea>
+        
+        <div id="prefill-block" class="panel subtle hidden" style="margin-top:12px;">
+          <h3>Assistant Prefill (optional)</h3>
+          <div class="actions">
+            <button id="prefill-copy">Copy Prefill</button>
+            <button id="prefill-download">Download Prefill</button>
+          </div>
+          <textarea id="assistant-prefill" readonly placeholder="Assistant prefill skeleton appears here when enabled..."></textarea>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-foot"></footer>
+
+    <script src="./app.js"></script>
+    <script src="./frontend-builder.js"></script>
+  </body>
+  </html>
+

@@ -1,0 +1,320 @@
+[
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "Prompt engineering",
+        "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+        "status": "confirmed",
+        "path": "guideline\\gpt\\prompt-engineering.md"
+    },
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "Best practices for prompt engineering with the OpenAI API",
+        "url": "https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api",
+        "status": "confirmed",
+        "path": ""
+    },
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "Prompt engineering best practices for ChatGPT",
+        "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt",
+        "status": "confirmed",
+        "path": ""
+    },
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "OpenAI Cookbook",
+        "url": "https://cookbook.openai.com",
+        "status": "confirmed",
+        "path": ""
+    },
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "GPT-4.1 Prompting Guide",
+        "url": "https://cookbook.openai.com/examples/gpt4-1_prompting_guide",
+        "status": "confirmed",
+        "path": ""
+    },
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "GPT-5 Prompting Guide",
+        "url": "https://cookbook.openai.com/examples/gpt-5/gpt-5_prompting_guide",
+        "status": "confirmed",
+        "path": ""
+    },
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "Prompt Migration Guide",
+        "url": "https://cookbook.openai.com/examples/prompt_migration_guide",
+        "status": "confirmed",
+        "path": ""
+    },
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "Optimize Prompts (with Evals/Agents)",
+        "url": "https://platform.openai.com/docs/guides/prompting/optimize-prompts",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "Realtime Prompting Guide",
+        "url": "https://cookbook.openai.com/examples/realtime_prompting_guide",
+        "status": "confirmed",
+        "path": ""
+    },
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "Enhance your prompts with meta-prompting",
+        "url": "https://platform.openai.com/docs/guides/prompting/meta-prompting",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "OpenAI",
+        "model": "GPT",
+        "title": "Whisper Prompting Guide",
+        "url": "https://platform.openai.com/docs/guides/whisper/whisper-prompting",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Prompt engineering overview",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+        "status": "unused",
+        "path": ""
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Claude 4 Prompt Engineering Best Practices",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices",
+        "status": "confirmed",
+        "path": "guideline\\claude\\claude-4-best-practices.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Be clear, direct, and detailed",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/be-clear-and-direct",
+        "status": "confirmed",
+        "path": "guideline\\claude\\be-clear-and-direct.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Use examples (multishot prompting) to guide Claude's behavior",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/multishot-prompting",
+        "status": "confirmed",
+        "path": "guideline\\claude\\multishot-prompting.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Let Claude think (chain of thought prompting) to increase performance",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-of-thought",
+        "status": "confirmed",
+        "path": "guideline\\claude\\chain-of-thought.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Use XML tags to structure prompts",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags",
+        "status": "confirmed",
+        "path": "guideline\\claude\\use-xml-tags.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Giving Claude a role with a system prompt",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/system-prompts",
+        "status": "confirmed",
+        "path": "guideline\\claude\\system-prompts.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Prefill Claude's response for greater output control",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prefill-claudes-response",
+        "status": "confirmed",
+        "path": "guideline\\claude\\prefill-claudes-response.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Chain complex prompts for stronger performance",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-prompts",
+        "status": "confirmed",
+        "path": "guideline\\claude\\chain-prompts.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Long context prompting tips",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/long-context-tips",
+        "status": "confirmed",
+        "path": "guideline\\claude\\long-context-tips.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Extended thinking tips",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/extended-thinking-tips",
+        "status": "unused",
+        "path": ""
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Define your success criteria",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/define-success",
+        "status": "confirmed",
+        "path": "guideline\\claude\\define-success.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Create strong empirical evaluations",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/develop-tests",
+        "status": "confirmed",
+        "path": "guideline\\claude\\develop-tests.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Using the Evaluation Tool",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/eval-tool",
+        "status": "confirmed",
+        "path": "guideline\\claude\\eval-tool.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Reduce hallucinations",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations",
+        "status": "confirmed",
+        "path": "guideline\\claude\\reduce-hallucinations.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Increase output consistency (JSON mode)",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/increase-consistency",
+        "status": "confirmed",
+        "path": "guideline\\claude\\increase-consistency.md"
+    },
+    {
+        "org": "Anthropic",
+        "model": "Claude",
+        "title": "Keep Claude in character with role prompting and prefilling",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/keep-claude-in-character",
+        "status": "confirmed",
+        "path": "guideline\\claude\\keep-claude-in-character.md"
+    },
+    {
+        "org": "Google",
+        "model": "Gemini",
+        "title": "Overview of prompting strategies (Vertex AI)",
+        "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/prompt-design-strategies",
+        "status": "confirmed",
+        "path": ""
+    },
+    {
+        "org": "Google",
+        "model": "Gemini",
+        "title": "Best practices with LLMs",
+        "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/llm-best-practices",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "Google",
+        "model": "Gemini",
+        "title": "Introduction to prompt design (Vertex AI)",
+        "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "Google",
+        "model": "Gemini",
+        "title": "Structure prompts (prefix/XML/sections)",
+        "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/structure-prompts",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "Google",
+        "model": "Gemini",
+        "title": "Prompt iteration strategies",
+        "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/prompt-iteration",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "Google",
+        "model": "Gemini",
+        "title": "What is prompt engineering? (Discover)",
+        "url": "https://cloud.google.com/discover/what-is-prompt-engineering",
+        "status": "confirmed",
+        "path": ""
+    },
+    {
+        "org": "Google",
+        "model": "Gemini",
+        "title": "Gemini API: Prompt design strategies",
+        "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "Google",
+        "model": "Gemini",
+        "title": "Gemini thinking guide",
+        "url": "https://ai.google.dev/gemini-api/docs/thinking",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "Google",
+        "model": "Gemini",
+        "title": "Gemini function calling",
+        "url": "https://ai.google.dev/gemini-api/docs/function-calling",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "Google",
+        "model": "Gemini",
+        "title": "Gemini text generation basics",
+        "url": "https://ai.google.dev/gemini-api/docs/text-generation",
+        "status": "unverified",
+        "path": ""
+    },
+    {
+        "org": "Academic",
+        "title": "The Prompt Report: A Systematic Survey of Prompting Techniques",
+        "url": "https://arxiv.org/abs/2406.06608",
+        "status": "confirmed",
+        "path": ""
+    },
+    {
+        "org": "Academic",
+        "title": "Unleashing the potential of prompt engineering in LLMs: a comprehensive review",
+        "url": "https://arxiv.org/abs/2310.14735",
+        "status": "confirmed",
+        "path": ""
+    }
+]
