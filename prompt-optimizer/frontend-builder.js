@@ -13,7 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const allControls = feBoard.querySelectorAll('input, select, textarea, button');
     
     const setEnabled = (enabled) => {
-      feBoard.classList.toggle('dimmed', !enabled);
+      if (enabled) {
+        feBoard.classList.remove('dimmed');
+        feBoard.classList.add('animate-in');
+      } else {
+        feBoard.classList.add('dimmed');
+        feBoard.classList.remove('animate-in');
+      }
+      
       allControls.forEach(el => { 
         el.disabled = !enabled; 
       });
@@ -24,12 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
       setEnabled(isEnabled);
       
       if (isEnabled) {
-        feBoard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Smooth scroll to frontend board
+        setTimeout(() => {
+          feBoard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+        
         // Show a brief intro message
-        const status = document.getElementById('status');
-        if (status) {
-          status.textContent = 'Frontend Builder enabled! Configure your options below.';
-          setTimeout(() => status.textContent = '', 3000);
+        if (window.showStatus) {
+          window.showStatus('Frontend Builder enabled! Configure your options below.', 'success');
         }
       }
     });

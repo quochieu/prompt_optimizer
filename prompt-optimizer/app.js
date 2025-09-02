@@ -56,6 +56,35 @@
   };
 
   // Utility functions
+  function showStatus(message, type = 'success') {
+    const status = els.status;
+    if (!status) return;
+    
+    // Clear existing classes
+    status.className = 'status-indicator';
+    
+    // Add appropriate status class
+    switch(type) {
+      case 'success':
+        status.classList.add('status-success');
+        break;
+      case 'warning':
+        status.classList.add('status-warning');
+        break;
+      case 'error':
+        status.classList.add('status-error');
+        break;
+    }
+    
+    status.classList.remove('hidden');
+    status.textContent = message;
+    
+    // Auto-hide after 3 seconds
+    setTimeout(() => {
+      status.classList.add('hidden');
+    }, 3000);
+  }
+
   function asBullets(arr) {
     return arr.map(s => `• ${s}`).join("\n");
   }
@@ -317,7 +346,7 @@
     }
     
     els.optimized.value = finalPrompt;
-    els.status.textContent = "Universal prompt generated successfully!";
+    showStatus("Universal prompt generated successfully!", 'success');
     
     savePrefs();
   }
@@ -325,7 +354,7 @@
   function buildFrontendPrompt() {
     const brief = (els.feBrief?.value || "").trim();
     if (!brief) { 
-      els.feStatus.textContent = "Add a brief first."; 
+      showStatus("Add a brief first.", 'warning'); 
       return; 
     }
     const style = (els.feStyle?.value || "").trim();
@@ -345,19 +374,17 @@
     
     const finalPrompt = sections.join('\n\n');
     els.feOptimized.value = finalPrompt;
-    els.feStatus.textContent = "Frontend configuration updated.";
+    showStatus("Frontend configuration updated.", 'success');
   }
 
   function copy() {
     if (!els.optimized.value.trim()) return;
     navigator.clipboard.writeText(els.optimized.value).then(() => {
-      els.status.textContent = "Copied to clipboard.";
-      setTimeout(() => els.status.textContent = "", 1200);
+      showStatus("Copied to clipboard.", 'success');
     }).catch(() => {
       els.optimized.select();
       document.execCommand("copy");
-      els.status.textContent = "Copied.";
-      setTimeout(() => els.status.textContent = "", 1200);
+      showStatus("Copied.", 'success');
     });
   }
 
@@ -496,6 +523,9 @@
   // --- INITIAL UI SETUP ON PAGE LOAD ---
   initTabs();
   loadPrefs();
+
+  // Make showStatus available globally for other scripts
+  window.showStatus = showStatus;
 
   // Add a console log to confirm that the script has initialized correctly.
   console.log("Unified Prompt Optimizer UI initialized successfully.");

@@ -1,22 +1,31 @@
 # Prompt Tools – Advanced GPT/Claude Prompt Optimizer + Frontend Builder
 
-A comprehensive, local web application for crafting high-quality prompts and frontend development briefs using best practices from both GPT and Claude guidelines. This tool combines universal prompting techniques with model-agnostic features, advanced options, and integrated frontend configuration. No API keys required; generates structured prompts ready for use in any AI platform.
+A comprehensive, local web application for crafting high-quality prompts and frontend development briefs using best practices from both GPT and Claude guidelines. This tool combines universal prompting techniques with model-agnostic features, advanced options, and integrated frontend configuration. Built with modern Tailwind CSS for optimal PC user experience.
 
 ## 🚀 Quick Start
 
-1. **Open the Application**: Open `prompt-optimizer/index.html` in your browser
-2. **Local Server (Recommended)**: For full functionality, run:
+1. **Clone/Download**: Get the project files to your local machine
+2. **Install Dependencies**: 
    ```bash
    cd prompt-optimizer
-   python -m http.server 8000
-   # Then visit http://localhost:8000
+   npm install
    ```
-3. **Start Building**: Use the unified prompt optimizer for all AI interactions
+3. **Build CSS** (for development):
+   ```bash
+   npm run build
+   # or for watching changes: npm run dev
+   ```
+4. **Run Local Server**:
+   ```bash
+   python -m http.server 8000
+   # Then visit http://localhost:8000/prompt-optimizer/
+   ```
+5. **Start Building**: Use the unified prompt optimizer for all AI interactions
 
 ## 📁 Project Structure
 
 ```
-gpt5_prompting/
+prompt_optimizer/
 ├── README.md                          # This documentation
 ├── guideline/                         # Reference materials
 │   ├── claude/                        # Claude-specific guidelines
@@ -35,11 +44,14 @@ gpt5_prompting/
 │       ├── gpt-5_frontend.txt
 │       └── gpt-5_prompting_guide.txt
 └── prompt-optimizer/                  # Main application
-    ├── index.html                     # Primary interface
-    ├── style.css                      # Light theme design system
+    ├── index.html                     # Primary interface (Tailwind-powered)
+    ├── src/input.css                  # Tailwind CSS source
+    ├── dist/output.css                # Generated CSS bundle
+    ├── tailwind.config.js             # Tailwind configuration
+    ├── package.json                   # Dependencies and build scripts
+    ├── js/toggle-handler.js           # Modern toggle functionality
     ├── app.js                         # Core application logic
-    ├── frontend-builder.js            # Frontend configuration module
-    └── dashboard.js                   # Navigation and UI enhancements
+    └── frontend-builder.js            # Frontend configuration module
 ```
 
 ## ⭐ Key Features
@@ -48,6 +60,7 @@ gpt5_prompting/
 - **Model-Agnostic Design**: Works optimally with both GPT and Claude
 - **Dual Input System**: Separate System Prompt and User Instructions fields
 - **Structured Output**: Generates well-formatted prompts with clear sections
+- **PC-Optimized Interface**: Desktop-focused sizing and spacing for productivity
 
 ### 🧠 **Advanced Reasoning & Logic**
 - **Chain of Thought**: Step-by-step reasoning instructions
@@ -68,20 +81,71 @@ gpt5_prompting/
 - **File Management**: Cleanup and organization instructions
 - **Project Structure**: Directory scaffolding guidance
 
-### 🎨 **Advanced Formatting & Structure**
-- **XML Tag Support**: Automatic structural markup
-- **JSON Output Preference**: Structured data responses
-- **Markdown Control**: Option to disable markdown formatting
-- **Assistant Prefill**: Response format enforcement
+### 🎨 **Modern Design System**
+- **Tailwind CSS 3.4+**: Utility-first styling with custom components
+- **Semantic HTML5**: Proper accessibility and structure
+- **Responsive Design**: Mobile-first approach with desktop optimization
+- **Custom Design Tokens**: Extended color palette and typography
+- **Visual Toggle Feedback**: Enhanced user interface interactions
 
 ### 🏗️ **Integrated Frontend Builder**
 - **Project Templates**: 7 pre-built templates (landing pages, games, dashboards, e-commerce)
 - **Tech Stack Selection**: Curated recommendations (Next.js, TypeScript, Tailwind CSS)
 - **Multimodal Support**: Image reference integration
 - **Interactive Features**: Games, animations, user flows
-- **Responsive Design**: Mobile-first approach
+- **PC-Optimized Forms**: Larger text areas and improved spacing for desktop productivity
 
-## 🛠️ Configuration Options
+## � Build Process & Development
+
+### Modern Tailwind Workflow
+```bash
+# Install dependencies
+npm install
+
+# Development with hot reload
+npm run dev
+
+# Production build
+npm run build
+
+# Start local server for testing
+python -m http.server 8000
+```
+
+### Custom Components Architecture
+- **Toggle Switches**: Modern Tailwind-based switches with visual feedback
+- **Form Elements**: PC-optimized sizing for desktop productivity
+- **Cards & Panels**: Semantic HTML5 structure with accessibility
+- **Button System**: Primary/secondary button variants with hover states
+- **Typography Scale**: Desktop-appropriate text sizing
+
+## 📊 Recent Improvements (v2.0)
+
+### ✅ **Tailwind CSS Migration**
+- **Complete UI Overhaul**: Migrated from custom CSS to Tailwind utilities
+- **Semantic HTML5**: Restructured for accessibility and maintainability
+- **Custom Components**: Created reusable @apply components for consistency
+- **Build System**: npm-based workflow with development/production modes
+- **Design Tokens**: Extended color palette and spacing system
+
+### ✅ **PC User Experience Optimization**
+- **Desktop Sizing**: Increased container widths to 1600px for wider screens
+- **Enhanced Typography**: Upgraded text sizes (text-sm → text-base, text-2xl → text-3xl)
+- **Improved Forms**: Larger textareas (min-height: 160px) and better spacing
+- **Button Enhancement**: Increased padding and icon sizes for desktop interaction
+- **Grid Spacing**: Expanded gaps from 6 to 8 units for better visual separation
+
+### ✅ **UI/UX Improvements**
+- **Toggle Visual Feedback**: Fixed Frontend Builder toggle to show state changes
+- **Simplified Header**: Removed unnecessary About/Help/Share buttons for cleaner interface
+- **File Cleanup**: Removed unused legacy CSS and JavaScript files
+- **Enhanced Accessibility**: Better focus states and screen reader support
+
+### ✅ **Component System**
+- **Modern Toggle Handler**: JavaScript class-based toggle management
+- **Visual State Management**: Proper checked/unchecked styling
+- **Responsive Design**: Mobile-first with desktop enhancements
+- **Animation System**: Smooth transitions and hover effects
 ### Core Settings
 - **Tone Control**: Default, Conversational, Professional, Academic, Creative
 - **Reasoning Effort**: Low (fast), Medium (balanced), High (thorough)
@@ -164,18 +228,53 @@ gpt5_prompting/
 
 ## 🔧 Technical Implementation
 
-### Architecture
-- **Pure Frontend**: No server dependencies
-- **Modular JavaScript**: Separate concerns with multiple files
+### Modern Architecture
+- **Tailwind CSS 3.4+**: Utility-first styling with custom component layer
+- **Semantic HTML5**: Proper document structure with accessibility attributes
+- **Modern JavaScript**: ES6+ classes and modules for maintainable code
+- **Build Process**: npm-based Tailwind compilation with watch mode
 - **Progressive Enhancement**: Core functionality works without advanced features
-- **Local Storage**: Persistent preferences and templates
-- **Event-Driven**: Responsive user interface
+
+### Component System
+```css
+/* Custom Tailwind Components */
+.toggle-switch {
+  @apply relative inline-flex h-6 w-11 items-center rounded-full;
+  @apply bg-neutral-300 focus:outline-none focus:ring-2;
+}
+
+.toggle-switch.checked {
+  @apply bg-gradient-to-r from-primary-500 to-secondary-500;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center px-8 py-4;
+  @apply bg-gradient-to-r from-primary-500 to-secondary-500;
+  @apply text-white font-semibold rounded-xl;
+}
+```
+
+### File Structure
+```
+prompt-optimizer/
+├── src/
+│   └── input.css              # Tailwind source with custom components
+├── dist/
+│   └── output.css             # Generated CSS bundle
+├── js/
+│   └── toggle-handler.js      # Modern toggle management
+├── tailwind.config.js         # Tailwind configuration
+├── package.json               # Dependencies and scripts
+├── index.html                 # Main application
+├── app.js                     # Core logic
+└── frontend-builder.js        # Frontend features
+```
 
 ### Browser Compatibility
-- **Modern Standards**: ES6+ JavaScript
-- **CSS Grid/Flexbox**: Advanced layout techniques
-- **Web APIs**: Clipboard, localStorage, FileReader
-- **Responsive Design**: Mobile-first CSS
+- **Modern Standards**: ES6+ JavaScript with class syntax
+- **CSS Grid/Flexbox**: Advanced layout with Tailwind utilities
+- **Web APIs**: Clipboard, localStorage, FileReader support
+- **Tailwind CSS**: Modern browser support with autoprefixer
 
 ## 📊 Performance Features
 
