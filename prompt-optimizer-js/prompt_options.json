@@ -1,0 +1,171 @@
+[
+  {
+    "session": "Advanced Options",
+    "options": [
+      {
+        "option": "Tone",
+        "group": "",
+        "description": "Sets the overall communication style of the AI's response.",
+        "type": "tone",
+        "output": [
+          { "param": "Default", "prompt": "" },
+          { "param": "Conversational", "prompt": "Use a conversational tone in your response." },
+          { "param": "Professional", "prompt": "Use a professional tone in your response." },
+          { "param": "Academic", "prompt": "Use an academic tone in your response." },
+          { "param": "Creative", "prompt": "Use a creative, imaginative tone in your response." }
+        ]
+      },
+      {
+        "option": "Reasoning Effort",
+        "group": "",
+        "description": "Controls the model's thoroughness and depth of reasoning.",
+        "type": "reasoning",
+        "output": [
+          { "param": "Low", "prompt": "Provide a direct, concise response; avoid lengthy explanations." },
+          { "param": "Medium", "prompt": "Think through the problem step by step; balance thoroughness with efficiency." },
+          { "param": "High", "prompt": "Analyze the problem from multiple angles; provide detailed reasoning and validation; double-check your work before responding." }
+        ]
+      },
+      {
+        "option": "Ask clarifying questions if needed",
+        "group": "Reasoning & Logic",
+        "description": "Ask clarifying questions when the request is ambiguous.",
+        "type": "behavior",
+        "output": [ { "param": "", "prompt": "Ask clarifying questions if the request is ambiguous or lacks important details." } ]
+      },        
+      {
+        "option": "Include Chain of Thought / Thinking",
+        "group": "Reasoning & Logic",
+        "description": "Instructs the AI to 'think step-by-step' before answering, improving accuracy on complex reasoning tasks.",
+        "type": "instructions",
+        "output": [ { "param": "", "prompt": "Think step by step. Break down complex problems into smaller components and explain your reasoning process clearly." } ]
+      },
+      {
+        "option": "Use Hidden Self-Review Rubric",
+        "group": "Reasoning & Logic",
+        "description": "Inserts internal quality rubric and iteration instructions.",
+        "type": "instructions",
+        "output": [ { "param": "", "prompt": "Create and apply an internal quality rubric; iterate on your answer until it meets the rubric's standard." } ]
+      },
+      {
+        "option": "Encourage Agentic Proactivity",
+        "group": "Reasoning & Logic",
+        "description": "Adds a persistence instruction for the agent to continue working until the task is resolved.",
+        "type": "instructions",
+        "output": [ { "param": "", "prompt": "Be proactive and thorough. Continue working until the task is fully resolved." } ]
+      },
+      {
+        "option": "Allow \"I don't know\" answers",
+        "group": "Grounding & Factuality",
+        "description": "Gives the AI permission to say it lacks information to reduce hallucinations.",
+        "type": "grounding",
+        "output": [ { "param": "", "prompt": "You can say \"I don't know\" when uncertain." } ]
+      },
+      {
+        "option": "Restrict to provided documents",
+        "group": "Grounding & Factuality",
+        "description": "Instructs the AI to use only the provided documents.",
+        "type": "grounding",
+        "output": [ { "param": "", "prompt": "Base your response only on the provided documents." } ]
+      },
+      {
+        "option": "Require citations / claim verification",
+        "group": "Grounding & Factuality",
+        "description": "Require citations for factual claims.",
+        "type": "grounding",
+        "output": [ { "param": "", "prompt": "Cite sources and provide references for factual claims." } ]
+      },
+      {
+        "option": "Extract supporting quotes first",
+        "group": "Grounding & Factuality",
+        "description": "Use quotes-first technique before analysis.",
+        "type": "grounding",
+        "output": [ { "param": "", "prompt": "Prioritize extracting relevant supporting quotes from the reference documents before generating analysis." } ]
+      },
+      {
+        "option": "Optimize for Long Context",
+        "group": "Grounding & Factuality",
+        "description": "Ordering and long-context strategies for large documents.",
+        "type": "grounding",
+        "output": [ { "param": "", "prompt": "Optimize ordering of large documents (place most relevant or larger documents first) and use long-context strategies to preserve important references." } ]
+      },
+      {
+        "option": "Include general code editing rules",
+        "group": "Code Generation",
+        "description": "Add code quality and best practice rules.",
+        "type": "code",
+        "output": [ { "param": "", "prompt": "Code generation rules:\n• Use clear, readable code with appropriate comments\n• Follow best practices for the programming language\n• Include error handling where appropriate\n• Write modular, reusable code" } ]
+      },
+      {
+        "option": "Encourage parallel tool calling",
+        "group": "Code Generation",
+        "description": "Allow parallel tool usage for efficiency.",
+        "type": "code",
+        "output": [ { "param": "", "prompt": "Tool usage: When multiple tools can be used simultaneously, call them in parallel to improve efficiency." } ]
+      },
+      {
+        "option": "Ask to clean up temp files",
+        "group": "Code Generation",
+        "description": "File management guidance for cleanup.",
+        "type": "code",
+        "output": [ { "param": "", "prompt": "File management: Clean up temporary files and maintain organized project structure." } ]
+      },
+      {
+        "option": "Add validation and acceptance criteria",
+        "group": "Verification & Validation",
+        "description": "Request that the AI include validation steps, test cases, and clear acceptance criteria to verify the solution.",
+        "type": "validation",
+        "output": [ { "param": "", "prompt": "Include validation steps, example test cases, and clear acceptance criteria to verify that the solution meets requirements." } ]
+      },
+      {
+        "option": "Add tool/step budget hints",
+        "group": "Efficiency & Constraints",
+        "description": "Provide guidance about tool usage budgets, step limits, or estimated resource consumption.",
+        "type": "constraints",
+        "output": [ { "param": "", "prompt": "Consider tool/step budgets: prefer solutions that meet step or resource limits, and include an estimate of expected cost/time where applicable." } ]
+      },
+      {
+        "option": "Ask to cite sources when relevant",
+        "group": "Grounding & Factuality",
+        "description": "Request citations or references for factual claims when applicable to improve verifiability.",
+        "type": "grounding",
+        "output": [ { "param": "", "prompt": "When making factual claims, provide citations or references to supporting sources where available." } ]
+      },
+      {
+        "option": "Enforce output structure",
+        "group": "Formatting & Structure",
+        "description": "Require the AI to follow a specified output format or structure exactly.",
+        "type": "formatting",
+        "output": [ { "param": "", "prompt": "Follow the specified output structure precisely. If a format or schema is provided, adhere to it exactly." } ]
+      },
+      {
+        "option": "Use XML tags for structure",
+        "group": "Formatting & Structure",
+        "description": "Wrap inputs such as context/examples in XML tags.",
+        "type": "formatting",
+        "output": [ { "param": "", "prompt": "Structure your response using appropriate XML tags for clarity." } ]
+      },
+      {
+        "option": "Prefer JSON output",
+        "group": "Formatting & Structure",
+        "description": "Prefer JSON structured output when applicable.",
+        "type": "formatting",
+        "output": [ { "param": "", "prompt": "Structure your response as valid JSON when appropriate." } ]
+      },
+      {
+        "option": "Forbid Markdown in output",
+        "group": "Formatting & Structure",
+        "description": "Forbid Markdown formatting in outputs.",
+        "type": "formatting",
+        "output": [ { "param": "", "prompt": "Do not use Markdown formatting. Use plain text with clear structure." } ]
+      },
+      {
+        "option": "Show Assistant Prefill skeleton",
+        "group": "Formatting & Structure",
+        "description": "Enable the assistant prefill preview.",
+        "type": "formatting",
+        "output": [ { "param": "", "prompt": "I'll help you with this task. Let me break it down and provide a comprehensive response..." } ]
+      }
+    ]
+  }
+]
